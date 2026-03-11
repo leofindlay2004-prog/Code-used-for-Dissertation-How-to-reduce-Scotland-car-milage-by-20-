@@ -1,0 +1,29 @@
+#reading in the data file 
+import numpy as np
+from pathlib import Path
+import pandas as pd
+
+
+filename1 = Path(r'C:\Users\dsb22141\OneDrive - University of Strathclyde\year 4\dissertation\code\trip_eul_2002-2024.dta')
+filename2= Path(r'C:\Users\dsb22141\OneDrive - University of Strathclyde\year 4\dissertation\code\household_eul_2002-2024.dta')
+display_file=pd.read_stata(filename1)
+
+
+df=pd.read_stata(filename1)
+df1=pd.read_stata(filename2)
+
+#making sure that the file exists 
+if not filename1.exists() | filename2.exists():
+    raise FileNotFoundError(f"File not found: {filename} — check OneDrive/local copy and path")
+
+#calculating total number of journeys 
+total_number_of_trips=df[(df['MainMode_B04ID']==3)]
+total_trips=len(total_number_of_trips)
+total_distance=total_number_of_trips['TripDisExSW'].sum()
+
+print('total number of trips',total_trips)
+print('total distance for these number of trips, excluding short walks',total_distance)
+
+
+  
+  
