@@ -1,0 +1,16 @@
+#20 min neigbour hoods calculation
+df['TripTravTime'] = pd.to_numeric(df['TripTravTime'], errors='coerce')
+journey_length_by_car=df[(df['MainMode_B04ID']== 3) & (df['TripTravTime']>20) & ((df['TripPurpose_B01ID'] == 1) | (df['TripPurpose_B01ID'] == 3) | (df['TripPurpose_B01ID'] == 4) | (df['TripPurpose_B01ID'] == 5) |(df['TripPurpose_B01ID'] == 20) | (df['TripPurpose_B01ID'] == 13) | (df['TripPurpose_B01ID'] == 21))]
+count_length_by_car=len(journey_length_by_car)
+distance_20_min=journey_length_by_car['TripDisExSW'].sum()
+
+
+new_total_distance=total_distance-distance_20_min
+percentage_reduction=(distance_20_min/total_distance)*100
+
+
+print("number of trips that can be taken away by 20 minute cities:", count_length_by_car)
+print('new total number of trips with introduction of 20 minute cities', new_total_trips_20min)      
+print('journeys that are greater than 20mins', distance_20_min)
+print('the new total distance is', new_total_distance)
+print('precentage reduction is', percentage_reduction)
