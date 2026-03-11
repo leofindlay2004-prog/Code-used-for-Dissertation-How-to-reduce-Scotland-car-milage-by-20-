@@ -1,0 +1,31 @@
+#increassing fuel dutey/carbon tax based on the fuel cars take 
+
+#increase in fuel duty
+print('commute distance is', commute_distance)
+reduced_trips_commute=commute_to_work_by_car.sample(frac=0.35, random_state=42)
+new_distance_commute=reduced_trips_commute['TripDisExSW'].sum()
+print('the new commuting distance is', new_distance_commute)
+
+trips_for_work=df[((df['TripPurpose_B01ID']== 2)| (df['TripPurpose_B01ID']== 3)) & (df['MainMode_B04ID']==3)]
+trips_buisness=len(trips_for_work)
+distance_work=trips_for_work['TripDisExSW'].sum()
+print('distance travled in course of work', distance_work)
+reduced_trips_work=trips_for_work.sample(frac=0.66, random_state=42)
+new_distance_work=reduced_trips_work['TripDisExSW'].sum()
+print('the new distnace travled in course of work', new_distance_work)
+
+print('distance travled for services', service_distance)
+reduced_trips_services=travel_by_car_services.sample(frac=0.59, random_state=42)
+new_distance_services=reduced_trips_services['TripDisExSW'].sum()
+print('the new distnace travled for services', new_distance_services)
+
+trip_social=count_by_car_social
+print('distance travled for social', social_distance)
+reduced_trips_social=travel_by_car_social.sample(frac=0.39, random_state=42)
+new_distance_social=reduced_trips_social['TripDisExSW'].sum()
+print('new distnace travled for social', new_distance_social)
+
+total_reduction=(new_distance_work+new_distance_services+new_distance_social)
+total_new_distance=total_distance-total_reduction
+fuel_reduction_percentage= (total_reduction/total_distance)*100
+print('percentage distance reduction is', fuel_reduction_percentage)
